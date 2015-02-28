@@ -1,6 +1,12 @@
 A simple, react-ready boilerplate project.
-Includes auto-rebuilding browserify and livereload.
-Browserify caches all dependencies for faster reloading.
+
+Features:
+
+* jsx transformation
+* cached dependencies for faster builds
+* livereload
+
+Install:
 
 * `npm install`
 * Add dependencies in package.json (as desired)
@@ -8,7 +14,6 @@ Browserify caches all dependencies for faster reloading.
 * `gulp build`
 * `gulp`
 * Connect to build/index.html
+* Edit away!
 
-Edit away!
-
-Note: If add add dependencies to package.json, you must re-run `gulp build`.S
+Note: If add add dependencies to package.json, you must re-run `gulp build`.
