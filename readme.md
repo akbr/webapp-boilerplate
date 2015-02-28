@@ -2,18 +2,18 @@ A simple, react-ready boilerplate project.
 
 Features:
 
-* jsx transformation
+* auto-rebuilding + livereload on all .js, .html, and .css saves
+* automatic jsx transformation
 * cached dependencies for faster builds
-* livereload
 
 Install:
 
+* Add dependencies in package.json, if desired
+* Tweak livereload options in package.json, if desired
 * `npm install`
-* Add dependencies in package.json (as desired)
-* Tweak livereload host in package.json (as desired)
 * `gulp build`
 * `gulp`
 * Connect to build/index.html
 * Edit away!
 
-Note: If add add dependencies to package.json, you must re-run `gulp build`.
+Note: When add dependencies to package.json, you must re-run `gulp build`.
