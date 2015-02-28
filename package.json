@@ -1,0 +1,23 @@
+{
+  "name": "webapp-boilerplate",
+  "author": "Aaron Rieke",
+  "main": "./build/index.js",
+  "dependencies": {
+    "react": "^0.12.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-livereload": "^3.8",
+    "browserify": "^9.0.3",
+    "reactify": "^1.0.0",
+    "vinyl-transform": "^1.0.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "liveReloadOptions": {
+    "host": "192.168.1.100"
+  }
+}
