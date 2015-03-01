@@ -10,11 +10,13 @@
     "gulp-livereload": "^3.8",
     "browserify": "^9.0.3",
     "reactify": "^1.0.0",
+    "babelify": "^5.0.3",
     "vinyl-transform": "^1.0.0"
   },
   "browserify": {
     "transform": [
-      "reactify"
+      "reactify",
+      "babelify"
     ]
   },
   "liveReloadOptions": {
