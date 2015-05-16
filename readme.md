@@ -1,11 +1,11 @@
-A simple, react-ready boilerplate project.
+A simple boilerplate project.
 
 Features:
 
 * auto-rebuilding + livereload on all .js, .html, and .css saves
 * automatic es6 to es5 transformation
 * automatic jsx transformation
-* cached dependencies for faster builds
+* caches dependencies (from package.json) for faster builds
 
 Install:
 
