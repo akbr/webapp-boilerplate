@@ -1,1 +1,1 @@
-console.log("Hello world!");
+((say) => {console.log(say)})("Hello, world!");

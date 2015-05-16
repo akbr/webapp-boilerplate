@@ -2,7 +2,7 @@ var pkg = require('./package.json');
 var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 var browserify = require('browserify');
-var transform = require('vinyl-transform');
+var source = require('vinyl-source-stream');
 
 var dependencies = [];
 for (var libName in pkg.dependencies) {
@@ -10,21 +10,17 @@ for (var libName in pkg.dependencies) {
 }
 
 gulp.task('buildApp', function () {
-  var browserified = transform(function(filename) {
-    var b = browserify({
-      entries: filename,
-      debug: true
-    });
-
-    dependencies.forEach(function (lib) {
-      b.exclude(lib);
-    });
-
-    return b.bundle();
+  var b = browserify({
+    debug: true,
+    entries: ['./src/index.js']
   });
 
-  return gulp.src(['./src/index.js']) 
-    .pipe(browserified)
+  dependencies.forEach(function (lib) {
+    b.exclude(lib);
+  });
+
+  return b.bundle()
+    .pipe(source('index.js'))
     .on('error', function (err) {
       console.log(err.toString());
       this.emit('end');
@@ -34,18 +30,20 @@ gulp.task('buildApp', function () {
 });
 
 gulp.task('buildLib', function () {
-  var browserified = transform(function(filename) {
-    var b = browserify(filename);
-
-    dependencies.forEach(function (lib) {
-      b.require(lib);
-    });
-
-    return b.bundle();
+  var b = browserify({
+    entries: ['./src/dependencies.js']
   });
 
-  return gulp.src('./src/dependencies.js') 
-    .pipe(browserified)
+  dependencies.forEach(function (lib) {
+    b.require(lib);
+  });
+
+  return b.bundle()
+    .pipe(source('dependencies.js'))
+    .on('error', function (err) {
+      console.log(err.toString());
+      this.emit('end');
+    })
     .pipe(gulp.dest('./build/'));
 });
 
