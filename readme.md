@@ -1,20 +1,20 @@
-A simple boilerplate project.
+A simple boilerplate project for web development.
 
 Features:
 
-* auto-rebuilding + livereload on all .js, .html, and .css saves
-* automatic es6 to es5 transformation
-* automatic jsx transformation
-* caches dependencies (from package.json) for faster builds
+* web server (port 8080) with livereload (port 35729)
+* es6 transpiling
+* pre-built dependencies (from package.json)
 
 Install:
 
 * Add dependencies in package.json, if desired
-* Tweak livereload options in package.json, if desired
 * `npm install`
-* `gulp build`
-* `gulp`
+* `gulp build // compiles third-party dependencies` 
+* `gulp // watch src directory`
 * Connect to build/index.html
 * Edit away!
 
-Note: When add dependencies to package.json, you must re-run `gulp build`.
+Notes:
+
+* Aftering adding new dependencies to package.json, you must re-run `gulp build`.

@@ -1,13 +1,14 @@
 var pkg = require('./package.json');
 var gulp = require('gulp');
-var livereload = require('gulp-livereload');
+var connect = require('gulp-connect');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 
-var dependencies = [];
-for (var libName in pkg.dependencies) {
-  dependencies.push(libName);
-}
+var dependencies = Object.keys(pkg.dependencies);
+
+var path = './src/**/*.';
+var staticExtensions = ['html', 'css', 'png'];
+var staticSrcs = staticExtensions.map(ext => path + ext);
 
 gulp.task('buildApp', function () {
   var b = browserify({
@@ -15,18 +16,16 @@ gulp.task('buildApp', function () {
     entries: ['./src/index.js']
   });
 
-  dependencies.forEach(function (lib) {
-    b.exclude(lib);
-  });
+  dependencies.forEach(lib => b.exclude(lib));
 
   return b.bundle()
-    .pipe(source('index.js'))
     .on('error', function (err) {
       console.log(err.toString());
       this.emit('end');
     })
+    .pipe(source('index.js'))
     .pipe(gulp.dest('./build/'))
-    .pipe(livereload());
+    .pipe(connect.reload());
 });
 
 gulp.task('buildLib', function () {
@@ -48,19 +47,24 @@ gulp.task('buildLib', function () {
 });
 
 gulp.task('moveStatic', function () {
-  return gulp.src([
-      './src/**/*.html', './src/**/*.css'
-    ])
+  return gulp
+    .src(staticSrcs)
     .pipe(gulp.dest('./build/'))
-    .pipe(livereload());
+    .pipe(connect.reload());
 });
 
 gulp.task('build', ['buildApp', 'buildLib', 'moveStatic']);
 
 gulp.task('watch', function() {
-  livereload.listen(pkg.liveReloadOptions);
   gulp.watch(['./src/**/*.js'], ['buildApp']);
-  gulp.watch(['./src/**/*.html'], ['moveStatic']);
+  gulp.watch(staticSrcs, ['moveStatic']);
 });
 
-gulp.task('default', ['buildApp', 'watch']);
+gulp.task('connect', function() {
+  connect.server({
+    root: 'build',
+    livereload: true
+  });
+});
+
+gulp.task('default', ['connect', 'buildApp', 'watch']);
