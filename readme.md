@@ -1,3 +1,10 @@
+!!!
+
+Replaced with [akbr/webapp-starter](https://github.com/akbr/webapp-starter).
+Here for archival purposes only.
+
+!!!
+
 A simple boilerplate project for web development.
 
 Features:
